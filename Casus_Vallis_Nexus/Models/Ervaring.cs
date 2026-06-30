@@ -6,25 +6,45 @@ using System.Threading.Tasks;
 
 namespace Casus_Vallis_Nexus.Models
 {
-    internal class Ervaring
+    public class Ervaring 
     {
         public string tekst;
-        public Bezoeker bezoeker;
+        public Bezoeker Bezoeker { get; set; }
         public List<ErvaringOverzicht> ervaringoverzicht = new List<ErvaringOverzicht>();
 
-        public bool Opslaan(string melding) // Deze controle is niet goed!
+        public int schema()
         {
-            melding = "Uw ervaring is opgeslagen!";
+            Console.WriteLine("Leeftijd: ");
+            string input = Console.ReadLine();
+            
+            if (int.TryParse(input, out int getal))
+            {
+            }
+            else
+            {
+                Console.WriteLine("Dat is geen geldig getal.");
+            }
+            return 0;
+            /*
+            Console.WriteLine($"Leeftijd: ");
+            string leeftijd = Console.ReadLine();
+            Console.WriteLine($"idfestivalkaartje: ");
+            string idfestivalkaartje = Console.ReadLine();
+            return int.Parse(Console.ReadLine());
+            */
+
+        }
+        public string Opslaan(string melding) // klassediagram veranderen.
+        {
             if (tekst != null) 
             {
-                Console.WriteLine($"{melding}");
-                return true;
+                melding = "Uw ervaring is opgeslagen.";
             }
-            else 
+            else
             {
-                Console.WriteLine($"Uw ervaring was geannuleerd");
-                return false;
+                melding = "Uw ervaring was geannuleerd.";
             }
+            return melding;
         }
     }
 }

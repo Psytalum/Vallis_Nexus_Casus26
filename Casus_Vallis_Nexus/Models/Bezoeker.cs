@@ -4,30 +4,29 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Casus_Vallis_Nexus.Models
 {
-    internal class Bezoeker
+    public class Bezoeker
     {
-        private int idfestivalkaartje;
+        public int idfestivalkaartje;
         public int leeftijd;
         public List<Ervaring> ervaring = new List<Ervaring>();
-        public Bezoeker(int idfestivalkaartje)
+       
+        public string Toegang (string recht) // klassediagram veranderen.
         {
-            this.idfestivalkaartje = idfestivalkaartje;
-        }
-
-        public bool Toegang (string recht)
-        {
-            if (idfestivalkaartje <= 5) 
+            if (idfestivalkaartje > 0 && idfestivalkaartje <= 5) 
             {
-                recht = "Je hebt rechten om ervaringen van de bezoekers te lezen!";
-                return true;
+                recht = "\n\nJe hebt voldoende rechten om de ervaringen van de bezoekers te lezen!" +
+                        "  \nWil je de ervaringen van de bezoekers lezen?";
+                
             }
-            else
+            else 
             {
-                return false;
+                recht = "Dank je wel voor uw ervaring over het feestival.";
             }
+            return recht;
         }
 
     }

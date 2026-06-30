@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Casus_Vallis_Nexus.Models
 {
-    internal class ErvaringOverzicht
+    public class ErvaringOverzicht
     {
         private int muziekRating;
         private int consumptiesRating;

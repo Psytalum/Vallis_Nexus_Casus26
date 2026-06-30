@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 
-namespace Vallis_Nexus_Casus26
+namespace Vallis_Nexus_Casus26.DataAccess
 {
-    class DAL
+    public class DAL
     {
         // Connectiestring naar de database
         private string connectionString = "Server=VS_WINDOWS11\\SQLEXPRESS;Database=Vallis_Nexus_Casus26;Trusted_Connection=True;TrustServerCertificate=True;";
