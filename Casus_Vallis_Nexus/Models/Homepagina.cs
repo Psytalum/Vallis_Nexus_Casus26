@@ -15,7 +15,8 @@ namespace Casus_Vallis_Nexus.Models
 
         public int Navigatie()
         {
-            Console.WriteLine($"Waar wil je naar toe? \n( Type het nummer in! )");
+            Console.WriteLine($"\t\t\tHomepagina");
+            Console.WriteLine($"\nWaar wil je naar toe? \n( Type het nummer in! \n)");
             Console.WriteLine("[1] Festival plattegrond");
             Console.WriteLine("[2] Festival informatie");
             Console.WriteLine("[3] Ervaring delen / Lezen");
