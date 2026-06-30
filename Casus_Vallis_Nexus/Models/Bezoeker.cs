@@ -13,16 +13,16 @@ namespace Casus_Vallis_Nexus.Models
         public int idfestivalkaartje;
         public int leeftijd;
         public List<Ervaring> ervaring = new List<Ervaring>();
-       
-        public string Toegang (string recht) // klassediagram veranderen.
+
+        public string Toegang(string recht) // klassediagram veranderen.
         {
-            if (idfestivalkaartje > 0 && idfestivalkaartje <= 5) 
+            if (idfestivalkaartje > 0 && idfestivalkaartje <= 5)
             {
                 recht = "\n\nJe hebt voldoende rechten om de ervaringen van de bezoekers te lezen!" +
                         "  \nWil je de ervaringen van de bezoekers lezen?";
-                
+
             }
-            else 
+            else
             {
                 recht = "Dank je wel voor uw ervaring over het feestival.";
             }

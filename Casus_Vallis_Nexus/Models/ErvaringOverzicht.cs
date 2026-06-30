@@ -8,10 +8,10 @@ namespace Casus_Vallis_Nexus.Models
 {
     public class ErvaringOverzicht
     {
-        private int muziekRating;
-        private int consumptiesRating;
-        private int festivalVibeRating;
-        private string beschrijvingVanRating;
+        public int muziekRating;
+        public int consumptiesRating;
+        public int festivalVibeRating;
+        public string beschrijvingVanRating;
 
         public ErvaringOverzicht(int muziekRating, int consumptiesRating, int festivalVibeRating, string beschrijvingVanRating)
         {
@@ -24,10 +24,10 @@ namespace Casus_Vallis_Nexus.Models
         public string ErvaringTekst()
         {
             return  $"Uw beoordelingen zijn\n" +
-                    $"Muziek:           {muziekRating}" +
-                    $"Consumpties:      {consumptiesRating}" +
-                    $"Vibe:             {festivalVibeRating}" +
-                    $"beschrijving:     {beschrijvingVanRating}";
+                    $"\nMuziek:           {muziekRating}" +
+                    $"\nConsumpties:      {consumptiesRating}" +
+                    $"\nVibe:             {festivalVibeRating}" +
+                    $"\nbeschrijving:     {beschrijvingVanRating}\n";
         }
 
     }
