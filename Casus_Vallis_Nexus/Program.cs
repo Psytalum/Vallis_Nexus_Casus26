@@ -1,5 +1,6 @@
 ﻿using Casus_Vallis_Nexus.DataAccess;
 using Casus_Vallis_Nexus.Models;
+using VallisNexusFestival;
 
 namespace Casus_Vallis_Nexus
 {
@@ -12,6 +13,7 @@ namespace Casus_Vallis_Nexus
             DAL vallis_ervaring_test = new DAL();
             ErvaringOverzicht nieuwSchema = new ErvaringOverzicht(8, 4, 6, "2026 was de beste editie ooit");
             int keuze = menu.Navigatie();
+
             if (keuze == 3)
             {
                 Console.Clear();
@@ -19,7 +21,6 @@ namespace Casus_Vallis_Nexus
                 //Console.WriteLine(nieuwSchema.ErvaringTekst()); dit voerd uit de methode voor ervaringen maar slaat het niet op in de database.
                 //Console.WriteLine(ervaringNino.Tekst());
                 //Console.WriteLine(ervaringNino.Opslaan("melding"));
-
                 DAL vallis_dal = new DAL(); //slaat de invoer meteen op in de database
 
                 int muziekrating = VraagRating("Muziekrating (1-10): ");
@@ -75,7 +76,60 @@ namespace Casus_Vallis_Nexus
 
                     return rating;
                 }
-                
+                menu.Navigatie();
+            }
+            else if (keuze == 1)
+
+
+            {
+                Plattegrond plattegrond = new Plattegrond(1, "Vallis Nexus Festival");
+
+                plattegrond.VoegLocatieToe(new Podium(1, "Main Stage", "Hoofdpodium voor optredens", "Open"));
+                plattegrond.VoegLocatieToe(new Toilet(2, "WC Noord", "Toiletten bij de ingang", "Bezet"));
+                plattegrond.VoegLocatieToe(new Foodtruck(3, "Burger Truck", "Burgers en friet", "Open"));
+
+                bool doorgaan = true;
+
+                while (doorgaan)
+                {
+                    Console.Clear();
+                    plattegrond.ToonPlattegrond();
+
+                    Console.WriteLine();
+                    Console.Write("Kies een locatie ID (of 0 om af te sluiten): ");
+
+                    int id;
+                    bool geldigGetal = int.TryParse(Console.ReadLine(), out id);
+
+                    if (!geldigGetal)
+                    {
+                        Console.WriteLine("Ongeldige invoer. Druk op een toets om opnieuw te proberen.");
+                        Console.ReadKey();
+                        continue;
+                    }
+
+                    if (id == 0)
+                    {
+                        doorgaan = false;
+                        Console.WriteLine("Programma afgesloten.");
+                    }
+                    else
+                    {
+                        Locatie gekozenLocatie = plattegrond.ZoekLocatieOpId(id);
+
+                        if (gekozenLocatie != null)
+                        {
+                            Console.WriteLine();
+                            gekozenLocatie.ToonInformatie();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Locatie niet gevonden.");
+                        }
+
+                        Console.WriteLine();
+                    }
+                }
             }
         }
     }
