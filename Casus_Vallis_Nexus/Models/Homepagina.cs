@@ -21,6 +21,7 @@ namespace Casus_Vallis_Nexus.Models
             Console.WriteLine("[2] Festival informatie");
             Console.WriteLine("[3] Ervaring delen / Lezen");
             Console.WriteLine("[4] Line-up bekijken");
+            Console.WriteLine("[5] Mijn Favoriete Line-up");
             string input = Console.ReadLine();
 
             if (int.TryParse(input, out int keuze))

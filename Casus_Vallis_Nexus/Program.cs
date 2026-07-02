@@ -1,4 +1,7 @@
-﻿using Casus_Vallis_Nexus.DataAccess;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq; 
+using Casus_Vallis_Nexus.DataAccess;
 using Casus_Vallis_Nexus.Models;
 using VallisNexusFestival;
 
@@ -9,128 +12,227 @@ namespace Casus_Vallis_Nexus
         static void Main(string[] args)
         {
             Homepagina menu = new Homepagina();
+            Bezoeker ingelogdeBezoeker = new Bezoeker();
+
+            // Line-up
+            List<Optreden> lineUp = new List<Optreden>
+            {
+                new Optreden(1, "14:00", "Mainstage", new Artiest(1, "Twenty One Pilots", "Alt Rock")),
+                new Optreden(2, "16:00", "Mainstage", new Artiest(2, "Billy Eyelash", "Pop")),
+                new Optreden(3, "18:00", "Techno Tent", new Artiest(3, "Raxeller", "Techno")),
+                new Optreden(4, "20:00", "Mainstage", new Artiest(4, "Rianna", "Pop"))
+            };
+
             Ervaring ervaringNino = new Ervaring();
             DAL vallis_ervaring_test = new DAL();
             ErvaringOverzicht nieuwSchema = new ErvaringOverzicht(8, 4, 6, "2026 was de beste editie ooit");
-            int keuze = menu.Navigatie();
 
-            if (keuze == 3)
+            // hoofdmenu optie loop
+            while (true)
             {
                 Console.Clear();
-                Console.WriteLine(ervaringNino.schema("recht"));
-                //Console.WriteLine(nieuwSchema.ErvaringTekst()); dit voerd uit de methode voor ervaringen maar slaat het niet op in de database.
-                //Console.WriteLine(ervaringNino.Tekst());
-                //Console.WriteLine(ervaringNino.Opslaan("melding"));
-                DAL vallis_dal = new DAL(); //slaat de invoer meteen op in de database
+                int keuze = menu.Navigatie();
 
-                int muziekrating = VraagRating("Muziekrating (1-10): ");
-                Console.WriteLine("Beschrijving muziek: ");
-                string muziekbeschrijving = Console.ReadLine();
-
-                int consumptierating = VraagRating("Consumptierating (1-10): ");
-                Console.WriteLine("Beschrijving consumptie: ");
-                string consumptiebeschrijving = Console.ReadLine();
-
-                int festivalviberating = VraagRating("Festivalviberating (1-10): ");
-                Console.WriteLine("Beschrijving festivalvibe: ");
-                string festivalvibebeschrijving = Console.ReadLine();
-
-                try
+                if (keuze == 3)
                 {
-                    int ratingnummer = vallis_dal.GetNextRatingnummer();
-                    vallis_dal.InsertRating(ratingnummer, muziekrating, consumptierating, festivalviberating,
-                        muziekbeschrijving, consumptiebeschrijving, festivalvibebeschrijving);
-                    Console.WriteLine("Ervaringen is opgeslagen in de database!");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Fout: " + ex.Message);
-                }
-                // functie voor controle rating tussen 1 en 10
-                static int VraagRating(string vraag) // static wat deze functie moet samen met de vorige gevoerd worden.
-                {
-                    int rating;
-                    bool geldig = false;
+                    Console.Clear();
+                    Console.WriteLine(ervaringNino.schema("recht"));
+                    DAL vallis_dal = new DAL();
 
-                    do
+                    int muziekrating = VraagRating("Muziekrating (1-10): ");
+                    Console.WriteLine("Beschrijving muziek: ");
+                    string muziekbeschrijving = Console.ReadLine();
+
+                    int consumptierating = VraagRating("Consumptierating (1-10): ");
+                    Console.WriteLine("Beschrijving consumptie: ");
+                    string consumptiebeschrijving = Console.ReadLine();
+
+                    int festivalviberating = VraagRating("Festivalviberating (1-10): ");
+                    Console.WriteLine("Beschrijving festivalvibe: ");
+                    string festivalvibebeschrijving = Console.ReadLine();
+
+                    try
                     {
-                        Console.WriteLine(vraag);
-                        string input = Console.ReadLine();
+                        int ratingnummer = vallis_dal.GetNextRatingnummer();
+                        vallis_dal.InsertRating(ratingnummer, muziekrating, consumptierating, festivalviberating,
+                            muziekbeschrijving, consumptiebeschrijving, festivalvibebeschrijving);
+                        Console.WriteLine("Ervaringen is opgeslagen in de database!");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Fout: " + ex.Message);
+                    }
 
-                        if (int.TryParse(input, out rating))
+                    // functie voor controle rating tussen 1 en 10
+                    int VraagRating(string vraag)
+                    {
+                        int rating;
+                        bool geldig = false;
+
+                        do
                         {
-                            if (rating < 1 || rating > 10)
+                            Console.WriteLine(vraag);
+                            string input = Console.ReadLine();
+
+                            if (int.TryParse(input, out rating))
                             {
-                                Console.WriteLine("Vul een getal in tussen 1 en 10.");
+                                if (rating < 1 || rating > 10)
+                                {
+                                    Console.WriteLine("Vul een getal in tussen 1 en 10.");
+                                }
+                                else
+                                {
+                                    geldig = true;
+                                }
                             }
                             else
                             {
-                                geldig = true;
+                                Console.WriteLine("Dat is geen geldig getal.");
                             }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Dat is geen geldig getal.");
-                        }
-                    } while (!geldig);
+                        } while (!geldig);
 
-                    return rating;
+                        return rating;
+                    }
+
+                    Console.WriteLine("\nDruk op een toets om terug te gaan naar het hoofdmenu...");
+                    Console.ReadKey();
                 }
-                menu.Navigatie();
-            }
-            else if (keuze == 1)
-
-
-            {
-                Plattegrond plattegrond = new Plattegrond(1, "Vallis Nexus Festival");
-
-                plattegrond.VoegLocatieToe(new Podium(1, "Main Stage", "Hoofdpodium voor optredens", "Open"));
-                plattegrond.VoegLocatieToe(new Toilet(2, "WC Noord", "Toiletten bij de ingang", "Bezet"));
-                plattegrond.VoegLocatieToe(new Foodtruck(3, "Burger Truck", "Burgers en friet", "Open"));
-
-                bool doorgaan = true;
-
-                while (doorgaan)
+                else if (keuze == 1)
                 {
-                    Console.Clear();
-                    plattegrond.ToonPlattegrond();
+                    Plattegrond plattegrond = new Plattegrond(1, "Vallis Nexus Festival");
 
-                    Console.WriteLine();
-                    Console.Write("Kies een locatie ID (of 0 om af te sluiten): ");
+                    plattegrond.VoegLocatieToe(new Podium(1, "Main Stage", "Hoofdpodium voor optredens", "Open"));
+                    plattegrond.VoegLocatieToe(new Toilet(2, "WC Noord", "Toiletten bij de ingang", "Bezet"));
+                    plattegrond.VoegLocatieToe(new Foodtruck(3, "Burger Truck", "Burgers en friet", "Open"));
 
-                    int id;
-                    bool geldigGetal = int.TryParse(Console.ReadLine(), out id);
+                    bool doorgaan = true;
 
-                    if (!geldigGetal)
+                    while (doorgaan)
                     {
-                        Console.WriteLine("Ongeldige invoer. Druk op een toets om opnieuw te proberen.");
-                        Console.ReadKey();
-                        continue;
-                    }
-
-                    if (id == 0)
-                    {
-                        doorgaan = false;
-                        Console.WriteLine("Programma afgesloten.");
-                    }
-                    else
-                    {
-                        Locatie gekozenLocatie = plattegrond.ZoekLocatieOpId(id);
-
-                        if (gekozenLocatie != null)
-                        {
-                            Console.WriteLine();
-                            gekozenLocatie.ToonInformatie();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Locatie niet gevonden.");
-                        }
+                        Console.Clear();
+                        plattegrond.ToonPlattegrond();
 
                         Console.WriteLine();
+                        Console.Write("Kies een locatie ID (of 0 om af te sluiten): ");
+
+                        int id;
+                        bool geldigGetal = int.TryParse(Console.ReadLine(), out id);
+
+                        if (!geldigGetal)
+                        {
+                            Console.WriteLine("Ongeldige invoer. Druk op een toets om opnieuw te proberen.");
+                            Console.ReadKey();
+                            continue;
+                        }
+
+                        if (id == 0)
+                        {
+                            doorgaan = false;
+                            Console.WriteLine("Programma afgesloten.");
+                        }
+                        else
+                        {
+                            Locatie gekozenLocatie = plattegrond.ZoekLocatieOpId(id);
+
+                            if (gekozenLocatie != null)
+                            {
+                                Console.WriteLine();
+                                gekozenLocatie.ToonInformatie();
+                                Console.ReadKey(); // Wacht op de gebruiker
+                            }
+                            else
+                            {
+                                Console.WriteLine("Locatie niet gevonden.");
+                                Console.ReadKey();
+                            }
+                        }
                     }
                 }
-            }
-        }
-    }
-}
+                else if (keuze == 4)
+                {
+                    bool inLineUp = true;
+                    while (inLineUp)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("=== PROGRAMMA / LINE-UP ===");
+                        foreach (var optreden in lineUp)
+                        {
+                            optreden.ToonDetails();
+                        }
+
+                        Console.WriteLine("\n[OptredenID] = Toevoegen aan favorieten | [0] = Afsluiten");
+                        Console.Write("Keuze: ");
+
+                        if (int.TryParse(Console.ReadLine(), out int invoer))
+                        {
+                            if (invoer == 0)
+                            {
+                                inLineUp = false;
+                            }
+                            else
+                            {
+                                Optreden gekozenOptreden = lineUp.FirstOrDefault(o => o.OptredenID == invoer);
+                                if (gekozenOptreden != null)
+                                {
+                                    ingelogdeBezoeker.VoegFavorietToe(gekozenOptreden);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Optreden ID niet gevonden.");
+                                }
+                                Console.WriteLine("Druk op een toets om verder te gaan...");
+                                Console.ReadKey();
+                            }
+                        }
+                    }
+                }
+                else if (keuze == 5)
+                {
+                    bool inFavorieten = true;
+                    while (inFavorieten)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("=== MIJN FAVORIETEN ===");
+
+                        if (ingelogdeBezoeker.Favorieten.Count == 0)
+                        {
+                            Console.WriteLine("Je hebt nog geen favorieten toegevoegd.");
+                        }
+                        else
+                        {
+                            foreach (var fav in ingelogdeBezoeker.Favorieten)
+                            {
+                                fav.ToonDetails();
+                            }
+                        }
+
+                        Console.WriteLine("\n[OptredenID] = Verwijderen uit favorieten | [0] = Afsluiten");
+                        Console.Write("Keuze: ");
+
+                        if (int.TryParse(Console.ReadLine(), out int invoer))
+                        {
+                            if (invoer == 0)
+                            {
+                                inFavorieten = false;
+                            }
+                            else
+                            {
+                                Optreden teVerwijderen = ingelogdeBezoeker.Favorieten.FirstOrDefault(o => o.OptredenID == invoer);
+                                if (teVerwijderen != null)
+                                {
+                                    ingelogdeBezoeker.VerwijderFavoriet(teVerwijderen);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Dit optreden staat niet in je lijst.");
+                                }
+                                Console.WriteLine("Druk op een toets om verder te gaan...");
+                                Console.ReadKey();
+                            }
+                        }
+                    }
+                }
+            } 
+        } 
+    } 
+} 
