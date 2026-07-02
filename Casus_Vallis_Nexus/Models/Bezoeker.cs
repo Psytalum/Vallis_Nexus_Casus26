@@ -14,6 +14,33 @@ namespace Casus_Vallis_Nexus.Models
         public int leeftijd;
         public List<Ervaring> ervaring = new List<Ervaring>();
 
+        public List<Optreden> Favorieten = new List<Optreden>();
+
+        public void VoegFavorietToe(Optreden optreden)
+        {
+            if (!Favorieten.Contains(optreden))
+            {
+                Favorieten.Add(optreden);
+                Console.WriteLine($"{optreden.Artiest.ArtiestNaam} is toegevoegd aan je favorieten!");
+            }
+            else
+            {
+                Console.WriteLine($"{optreden.Artiest.ArtiestNaam} staat al in je favorieten.");
+            }
+        }
+
+        public void VerwijderFavoriet(Optreden optreden)
+        {
+            if (Favorieten.Contains(optreden))
+            {
+                Favorieten.Remove(optreden);
+                Console.WriteLine($"{optreden.Artiest.ArtiestNaam} is verwijderd uit je favorieten.");
+            }
+            else
+            {
+                Console.WriteLine("Dit optreden staat niet in je favorieten.");
+            }
+        }
         public string Toegang(string recht) // klassediagram veranderen.
         {
             if (idfestivalkaartje > 0 && idfestivalkaartje <= 5)
