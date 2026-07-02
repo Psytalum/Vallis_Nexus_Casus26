@@ -19,76 +19,64 @@ namespace Casus_Vallis_Nexus
                 //Console.WriteLine(nieuwSchema.ErvaringTekst()); dit voerd uit de methode voor ervaringen maar slaat het niet op in de database.
                 //Console.WriteLine(ervaringNino.Tekst());
                 //Console.WriteLine(ervaringNino.Opslaan("melding"));
-            }
-            DAL vallis_dal = new DAL(); //slaat de invoer meteen op in de database
 
-            int muziekrating = VraagRating("Muziekrating (1-10): ");
-            Console.WriteLine("Beschrijving muziek: ");
-            string muziekbeschrijving = Console.ReadLine();
+                DAL vallis_dal = new DAL(); //slaat de invoer meteen op in de database
 
-            int consumptierating = VraagRating("Consumptierating (1-10): ");
-            Console.WriteLine("Beschrijving consumptie: ");
-            string consumptiebeschrijving = Console.ReadLine();
+                int muziekrating = VraagRating("Muziekrating (1-10): ");
+                Console.WriteLine("Beschrijving muziek: ");
+                string muziekbeschrijving = Console.ReadLine();
 
-            int festivalviberating = VraagRating("Festivalviberating (1-10): ");
-            Console.WriteLine("Beschrijving festivalvibe: ");
-            string festivalvibebeschrijving = Console.ReadLine();
+                int consumptierating = VraagRating("Consumptierating (1-10): ");
+                Console.WriteLine("Beschrijving consumptie: ");
+                string consumptiebeschrijving = Console.ReadLine();
 
-            try
-            {
-                int ratingnummer = vallis_dal.GetNextRatingnummer();
-                vallis_dal.InsertRating(ratingnummer, muziekrating, consumptierating, festivalviberating,
-                    muziekbeschrijving, consumptiebeschrijving, festivalvibebeschrijving);
-                Console.WriteLine("Ervaringen is opgeslagen in de database!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Fout: " + ex.Message);
-            }
-            // functie voor controle rating tussen 1 en 10
-            static int VraagRating(string vraag) // static wat deze functie moet samen met de vorige gevoerd worden.
-            {
-                int rating;
-                bool geldig = false;
+                int festivalviberating = VraagRating("Festivalviberating (1-10): ");
+                Console.WriteLine("Beschrijving festivalvibe: ");
+                string festivalvibebeschrijving = Console.ReadLine();
 
-                do
+                try
                 {
-                    Console.WriteLine(vraag);
-                    string input = Console.ReadLine();
+                    int ratingnummer = vallis_dal.GetNextRatingnummer();
+                    vallis_dal.InsertRating(ratingnummer, muziekrating, consumptierating, festivalviberating,
+                        muziekbeschrijving, consumptiebeschrijving, festivalvibebeschrijving);
+                    Console.WriteLine("Ervaringen is opgeslagen in de database!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Fout: " + ex.Message);
+                }
+                // functie voor controle rating tussen 1 en 10
+                static int VraagRating(string vraag) // static wat deze functie moet samen met de vorige gevoerd worden.
+                {
+                    int rating;
+                    bool geldig = false;
 
-                    if (int.TryParse(input, out rating))
+                    do
                     {
-                        if (rating < 1 || rating > 10)
+                        Console.WriteLine(vraag);
+                        string input = Console.ReadLine();
+
+                        if (int.TryParse(input, out rating))
                         {
-                            Console.WriteLine("Vul een getal in tussen 1 en 10.");
+                            if (rating < 1 || rating > 10)
+                            {
+                                Console.WriteLine("Vul een getal in tussen 1 en 10.");
+                            }
+                            else
+                            {
+                                geldig = true;
+                            }
                         }
                         else
                         {
-                            geldig = true;
+                            Console.WriteLine("Dat is geen geldig getal.");
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Dat is geen geldig getal.");
-                    }
-                } while (!geldig);
+                    } while (!geldig);
 
-                return rating;
+                    return rating;
+                }
+                
             }
-            /*
-            try
-            {
-                int nieuwRatingnummer = vallis_ervaring_test.GetNextRatingnummer();// pakt nieuwe nummer voor ratingnummer die een PK is
-                vallis_ervaring_test.InsertRating(ratingnummer: nieuwRatingnummer, muziekrating: 9, consumptierating: 7, festivalviberating: 8,
-                    muziekbeschrijving: "Muziek was top!",
-                    consumptiebeschrijving: "Drankjes waren een beetje duur",
-                    festivalvibebeschrijving: "Top sfeer, goede energie");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Fout: " + ex.Message);
-            }
-            */
         }
     }
 }
