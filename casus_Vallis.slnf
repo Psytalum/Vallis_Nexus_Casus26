@@ -1,0 +1,8 @@
+{
+  "solution": {
+    "path": "Casus_Vallis_Nexus.slnx",
+    "projects": [
+      "Casus_Vallis_Nexus\\Casus_Vallis_Nexus.csproj"
+    ]
+  }
+}

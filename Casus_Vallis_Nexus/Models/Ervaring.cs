@@ -16,7 +16,7 @@ namespace Casus_Vallis_Nexus.Models
         {
             int getal;
             bool geldig = false;
-
+            Console.WriteLine("\t\t\t\t\t\tErvaring delen");
             do
             {
                 Console.WriteLine("Leeftijd: ");
