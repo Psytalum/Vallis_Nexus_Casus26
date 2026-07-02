@@ -148,6 +148,25 @@ namespace Casus_Vallis_Nexus
                         }
                     }
                 }
+                else if (keuze == 2)
+                {
+                    Console.Clear();
+                    Console.WriteLine("--- Over Vallis Nexus Festival ---");
+
+                   
+                    Console.WriteLine("Het Vallis Nexus Festival is een kleinschalig, vrij toegankelijk muziekfestival in Zuid-Limburg.");
+                    Console.WriteLine("Het biedt bezoekers een laagdrempelige plek om samen te genieten van live muziek,");
+                    Console.WriteLine("lokale artiesten, foodtrucks en een gezellige festivalsfeer.\n");
+
+                    
+                    Console.WriteLine("Onze missie:");
+                    Console.WriteLine("De missie van Vallis Nexus is om cultuur en muziek bereikbaar te maken voor iedereen.");
+                    Console.WriteLine("Door gratis toegang en een open karakter wil het festival mensen uit de regio");
+                    Console.WriteLine("samenbrengen en lokaal talent een podium geven.");
+
+                    Console.WriteLine("\n[Druk op een toets om terug te gaan naar het menu]");
+                    Console.ReadKey();
+                }
                 else if (keuze == 4)
                 {
                     bool inLineUp = true;
